@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NairaTrust Bank — Demo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Top bar -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">₦</div>
+        <div class="name">NairaTrust Bank</div>
+      </div>
+      <nav class="top-actions">
+        <button id="themeToggle" class="icon-btn">🌓</button>
+        <button id="logoutBtn" class="btn ghost hide">Logout</button>
+      </nav>
+    </header>
+
+    <!-- Pages container (SPA-ish) -->
+    <main class="pages">
+
+      <!-- LOGIN PAGE -->
+      <section id="page-login" class="page page-login active">
+        <div class="login-left">
+          <h1>Welcome back, Pascal.</h1>
+          <p class="muted">Access your demo account. This is a realistic client-side bank simulation.</p>
+
+          <form id="loginForm" class="card login-card" autocomplete="off">
+            <label>
+              <span>Username</span>
+              <input id="loginUsername" name="username" required placeholder="Pascal" />
+            </label>
+            <label>
+              <span>Password</span>
+              <input id="loginPassword" name="password" type="password" required placeholder="Helpmr12@" />
+            </label>
+            <button class="btn primary" type="submit">Log in</button>
+            <small class="hint">Demo credentials — username: <b>Pascal</b> / password: <b>Helpmr12@</b></small>
+          </form>
+
+          <div class="login-extra">
+            <button id="previewBtn" class="link">Preview demo without logging (read-only)</button>
+          </div>
+        </div>
+
+        <div class="login-right">
+          <div class="hero-beach">
+            <svg class="wave" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,24 C300,120 900,0 1200,60 L1200 120 L0 120 Z"></path></svg>
+            <div class="sun"></div>
+            <div class="beach-text">NairaTrust — feel the flow.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DASHBOARD -->
+      <section id="page-dashboard" class="page page-dashboard">
+        <div class="dashboard-grid">
+          <aside class="sidebar">
+            <div class="profile-card">
+              <div class="avatar">P</div>
+              <div>
+                <div class="big">Pascal</div>
+                <div class="muted small">Personal Demo Account</div>
+              </div>
+            </div>
+
+            <nav class="menu">
+              <button data-target="dashboard" class="menu-item active">Dashboard</button>
+              <button data-target="transfer" class="menu-item">Transfer</button>
+              <button data-target="add-money" class="menu-item">Add Money</button>
+              <button data-target="airtime" class="menu-item">Buy Airtime</button>
+              <button data-target="transactions" class="menu-item">Transactions</button>
+              <button data-target="vault" class="menu-item">Savings Vault</button>
+              <button data-target="settings" class="menu-item">Settings</button>
+            </nav>
+
+            <div class="small muted pad">NairaTrust Demo • Client-side only</div>
+          </aside>
+
+          <section class="main">
+            <div class="balance-card card">
+              <div class="balance-top">
+                <div>
+                  <div class="muted">Available balance</div>
+                  <div id="balanceDisplay" class="balance-amount">₦0.00</div>
+                </div>
+                <div class="actions">
+                  <button id="quickTransfer" class="btn small">Transfer</button>
+                  <button id="quickAdd" class="btn small ghost">Add Money</button>
+                </div>
+              </div>
+              <div class="recent">
+                <div class="muted">Recent transactions</div>
+                <ul id="recentList" class="recent-list"></ul>
+              </div>
+            </div>
+
+            <div class="grid-3">
+              <div class="card quick card-cta">
+                <h3>Transfer</h3>
+                <p>Send money to banks or wallets (OPay, PalmPay, MoneyPoint).</p>
+                <button data-target="transfer" class="btn primary go">Send</button>
+              </div>
+
+              <div class="card quick">
+                <h3>Add Money</h3>
+                <p>Top up your account via mock card or bank transfer.</p>
+                <button data-target="add-money" class="btn ghost go">Top up</button>
+              </div>
+
+              <div class="card quick">
+                <h3>Airtime</h3>
+                <p>Buy airtime for any phone number instantly.</p>
+                <button data-target="airtime" class="btn ghost go">Buy</button>
+              </div>
+            </div>
+
+            <div class="card transactions-preview">
+              <div class="row between">
+                <h3>Transaction activity</h3>
+                <div>
+                  <button data-target="transactions" class="btn ghost">View all</button>
+                </div>
+              </div>
+              <div id="txnPreview" class="txn-preview-list"></div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- TRANSFER PAGE -->
+      <section id="page-transfer" class="page page-transfer">
+        <div class="card">
+          <h2>Transfer funds</h2>
+          <form id="transferForm" class="form">
+            <label>
+              <span>Transfer to</span>
+              <select id="transferChannel">
+                <option value="bank">Bank Account</option>
+                <option value="opay">OPay</option>
+                <option value="palmpay">PalmPay</option>
+                <option value="moneypoint">MoneyPoint</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Beneficiary name</span>
+              <input id="benefName" required placeholder="Recipient name" />
+            </label>
+
+            <label id="bankNumberLabel">
+              <span>Account number / Wallet phone</span>
+              <input id="benefAccount" required placeholder="0123456789 or 1234567890" />
+            </label>
+
+            <label>
+              <span>Amount (₦)</span>
+              <input id="transferAmount" type="number" min="1" required placeholder="1000" />
+            </label>
+
+            <label>
+              <span>Note (optional)</span>
+              <input id="transferNote" placeholder="For: dinner, rent, etc." />
+            </label>
+
+            <div class="row">
+              <button class="btn primary" type="submit">Proceed (enter PIN)</button>
+              <button class="btn ghost" type="button" id="transferCancel">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ADD MONEY PAGE -->
+      <section id="page-add-money" class="page page-add-money">
+        <div class="card">
+          <h2>Add money to your account</h2>
+          <form id="addMoneyForm" class="form">
+            <label>
+              <span>Method</span>
+              <select id="addMethod">
+                <option value="card">Card (simulated)</option>
+                <option value="bank">Bank transfer (simulated)</option>
+                <option value="ussd">USSD (simulated)</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Amount (₦)</span>
+              <input id="addAmount" type="number" min="100" required placeholder="5000" />
+            </label>
+
+            <div class="row">
+              <button class="btn primary" type="submit">Add money</button>
+              <button class="btn ghost" type="button" id="addCancel">Cancel</button>
+            </div>
+            <small class="muted">This is a demo: top-ups are simulated instantly.</small>
+          </form>
+        </div>
+      </section>
+
+      <!-- AIRTIME PAGE -->
+      <section id="page-airtime" class="page page-airtime">
+        <div class="card">
+          <h2>Buy airtime</h2>
+          <form id="airtimeForm" class="form">
+            <label>
+              <span>Mobile number</span>
+              <input id="airtimeNumber" required placeholder="0803xxxxxxx" />
+            </label>
+            <label>
+              <span>Amount (₦)</span>
+              <input id="airtimeAmount" type="number" min="50" required placeholder="500" />
+            </label>
+            <div class="row">
+              <button class="btn primary" type="submit">Purchase (enter PIN)</button>
+              <button class="btn ghost" type="button" id="airtimeCancel">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- TRANSACTIONS PAGE -->
+      <section id="page-transactions" class="page page-transactions">
+        <div class="card">
+          <div class="row between">
+            <h2>Transactions</h2>
+            <div>
+              <select id="txnFilter">
+                <option value="all">All</option>
+                <option value="credit">Credit</option>
+                <option value="debit">Debit</option>
+                <option value="airtime">Airtime</option>
+                <option value="transfer">Transfer</option>
+              </select>
+              <button id="exportCsv" class="btn ghost">Export CSV</button>
+            </div>
+          </div>
+
+          <div id="txnTableWrap" class="txn-table-wrap"></div>
+        </div>
+      </section>
+
+      <!-- VAULT (Savings) -->
+      <section id="page-vault" class="page page-vault">
+        <div class="card">
+          <h2>Savings Vault</h2>
+          <div id="vaultStatus" class="muted">Create a vault to set money aside.</div>
+
+          <form id="vaultForm" class="form">
+            <label><span>Vault name</span><input id="vaultName" placeholder="Holiday" required /></label>
+            <label><span>Amount to move (₦)</span><input id="vaultAmount" type="number" min="100" required /></label>
+            <div class="row">
+              <button class="btn primary" type="submit">Create & Move</button>
+            </div>
+          </form>
+
+          <div id="vaultList" class="muted pad"></div>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section id="page-settings" class="page page-settings">
+        <div class="card">
+          <h2>Settings & profile</h2>
+          <form id="changePassForm" class="form">
+            <label><span>Current password</span><input id="curPass" type="password" required /></label>
+            <label><span>New password</span><input id="newPass" type="password" required /></label>
+            <div class="row">
+              <button class="btn primary">Change password</button>
+            </div>
+            <small class="muted">This updates only the demo client-side password.</small>
+          </form>
+
+          <div class="pad">
+            <button id="logoutBtn2" class="btn ghost">Log out</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- PIN modal -->
+    <div id="pinModal" class="modal hide">
+      <div class="modal-card">
+        <h3>Enter transaction PIN</h3>
+        <p class="muted">For demo: PIN is <b>2007</b>.</p>
+        <input id="pinInput" type="password" placeholder="••••" maxlength="6" />
+        <div class="row">
+          <button id="pinConfirm" class="btn primary">Confirm</button>
+          <button id="pinCancel" class="btn ghost">Cancel</button>
+        </div>
+        <div id="pinError" class="muted error"></div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast hide"></div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

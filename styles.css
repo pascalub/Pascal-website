@@ -1,0 +1,122 @@
+:root{
+    --bg: #0f1724;
+    --card: rgba(255,255,255,0.06);
+    --glass: rgba(255,255,255,0.04);
+    --accent: #00b894;
+    --accent-2: #00a1ff;
+    --muted: rgba(255,255,255,0.7);
+    --glass-border: rgba(255,255,255,0.06);
+    --danger: #ff7675;
+    --warning: #ffd166;
+    --radius: 12px;
+    --glass-padding: 18px;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color-scheme: dark;
+  }
+  
+  /* Reset */
+  *{box-sizing:border-box}
+  html,body,#app{height:100%}
+  body{
+    margin:0;
+    background:linear-gradient(180deg,#061220 0%, #0b1626 60%, #0f2638 100%);
+    color:#fff;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+  
+  /* Topbar */
+  .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 20px;
+    border-bottom:1px solid rgba(255,255,255,0.03);
+    backdrop-filter: blur(6px);
+    position:sticky;
+    top:0;
+    z-index:30;
+  }
+  .brand{display:flex;align-items:center;gap:10px}
+  .logo{
+    width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#012;
+    box-shadow:0 6px 20px rgba(0,0,0,0.4);
+  }
+  .name{font-weight:700;font-size:16px}
+  .top-actions{display:flex;gap:8px;align-items:center}
+  .btn{padding:8px 12px;border-radius:10px;border:0;background:transparent;color:inherit;cursor:pointer;font-weight:600}
+  .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#012}
+  .btn.ghost{border:1px solid rgba(255,255,255,0.06);background:transparent}
+  .btn.small{padding:6px 8px;font-size:14px;border-radius:8px}
+  .icon-btn{font-size:18px}
+  
+  /* Pages container */
+  .pages{display:block;padding:20px;min-height:calc(100vh - 68px)}
+  .page{display:none;opacity:0;transform:translateY(10px);transition:all .35s cubic-bezier(.2,.9,.25,1)}
+  .page.active{display:block;opacity:1;transform:none}
+  
+  /* LOGIN layout */
+  .page-login{display:flex;gap:30px;align-items:stretch}
+  .login-left{flex:1;max-width:640px}
+  .login-right{flex:1;position:relative;display:flex;align-items:center;justify-content:center}
+  .login-card{padding:20px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));border:1px solid var(--glass-border);max-width:420px}
+  .login-card label{display:block;margin-bottom:12px}
+  .login-card input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+  .hint{display:block;margin-top:12px;color:var(--muted)}
+  .login-extra{margin-top:12px}
+  .link{background:none;border:0;color:var(--accent);cursor:pointer;padding:6px 0}
+  
+  /* Beach hero */
+  .hero-beach{width:100%;height:320px;border-radius:14px;overflow:hidden;position:relative;background:linear-gradient(180deg,#ffd89b 0%, #f76b1c 60%);box-shadow:0 20px 50px rgba(0,0,0,0.4)}
+  .hero-beach .wave{position:absolute;bottom:-1px;left:0;width:100%;height:80px;fill:rgba(255,255,255,0.2)}
+  .hero-beach .sun{position:absolute;right:40px;top:40px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #fffacd, #ffd166);box-shadow:0 10px 40px rgba(0,0,0,0.2)}
+  .beach-text{position:absolute;left:20px;bottom:40px;font-weight:700;color:#3b2b00;font-size:20px}
+  
+  /* Dashboard grid */
+  .dashboard-grid{display:grid;grid-template-columns:260px 1fr;gap:20px}
+  .sidebar{padding:12px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid var(--glass-border)}
+  .profile-card{display:flex;gap:12px;align-items:center;padding:10px;border-radius:10px}
+  .avatar{width:48px;height:48px;border-radius:10px;background:linear-gradient(90deg,#6c5ce7,#00b894);display:flex;align-items:center;justify-content:center;font-weight:700;color:#021;}
+  .menu{margin-top:18px;display:flex;flex-direction:column;gap:6px}
+  .menu-item{background:transparent;border:0;padding:12px;border-radius:8px;text-align:left;color:var(--muted);cursor:pointer}
+  .menu-item.active{background:rgba(255,255,255,0.03);color:#fff;font-weight:700}
+  
+  /* main area */
+  .main{display:flex;flex-direction:column;gap:16px}
+  .card{background:var(--card);padding:18px;border-radius:14px;border:1px solid var(--glass-border)}
+  .balance-card{display:flex;flex-direction:column;gap:12px}
+  .balance-top{display:flex;justify-content:space-between;align-items:flex-start}
+  .balance-amount{font-size:28px;font-weight:800}
+  .recent-list{margin:8px 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+  .recent-list li{display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;background:rgba(255,255,255,0.02)}
+  
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .quick{padding:16px}
+  .card-cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#012}
+  
+  /* forms */
+  .form label{display:block;margin-bottom:10px}
+  .form input,.form select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+  
+  /* transactions table */
+  .txn-table-wrap{margin-top:12px}
+  .txn-row{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:8px;margin-bottom:8px;background:rgba(255,255,255,0.02)}
+  .txn-row .amount{font-weight:700}
+  
+  /* modal */
+  .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(2,6,23,0.5);z-index:60;transition:opacity .25s}
+  .modal-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:20px;border-radius:12px;min-width:320px;border:1px solid var(--glass-border)}
+  .hide{display:none}
+  
+  /* toast */
+  .toast{position:fixed;right:20px;bottom:20px;padding:12px 16px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.5);background:rgba(0,0,0,0.6);backdrop-filter:blur(6px)}
+  .error{color:var(--danger);margin-top:8px}
+  
+  /* responsive */
+  @media (max-width:900px){
+    .dashboard-grid{grid-template-columns:1fr}
+    .grid-3{grid-template-columns:1fr}
+    .page-login{flex-direction:column}
+    .login-right{height:220px}
+  }
