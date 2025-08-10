@@ -1,0 +1,168 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zenith Prime - Loan Application</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .form-section {
+      max-width: 500px;
+      margin: 3rem auto;
+      background: #1f2937;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+      color: #e0e7ff;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: none;
+      margin-top: 0.25rem;
+      font-size: 1rem;
+      background: #374151;
+      color: #fff;
+    }
+    button {
+      margin-top: 2rem;
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 10px;
+      border: none;
+      background: #22c55e;
+      font-weight: bold;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #16a34a;
+    }
+    .loading {
+      margin-top: 1rem;
+      color: #a3e635;
+      font-weight: bold;
+      text-align: center;
+      font-size: 1.1rem;
+      display: none;
+    }
+
+    /* Modal */
+    #loan-modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    #loan-modal.show {
+      visibility: visible;
+      opacity: 1;
+    }
+    .modal-content {
+      background: #111827;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 400px;
+      color: #d1d5db;
+      text-align: center;
+      box-shadow: 0 0 25px #22c55e;
+      position: relative;
+    }
+    .modal-content h2 {
+      margin-bottom: 1rem;
+      color: #22c55e;
+    }
+    .modal-content p {
+      margin: 0.75rem 0;
+      font-size: 1rem;
+    }
+    .btn-close {
+      margin-top: 1.5rem;
+      background: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 0.7rem 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .btn-close:hover {
+      background: #b91c1c;
+    }
+  </style>
+</head>
+<body class="dashboard-body">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Zenith Prime</div>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="transfer.html">Transfer</a></li>
+      <li><a href="airtime.html">Airtime</a></li>
+      <li><a href="addmoney.html">Add Money</a></li>
+      <li><a href="history.html">History</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </nav>
+
+  <section class="form-section">
+    <h2>Fake Loan Application</h2>
+    <form id="loan-form">
+      <label for="loan-amount">Loan Amount (₦)</label>
+      <input type="number" id="loan-amount" min="1000" required placeholder="Enter amount" />
+
+      <label for="loan-term">Loan Term (months)</label>
+      <select id="loan-term" required>
+        <option value="" disabled selected>Select term</option>
+        <option value="3">3 months</option>
+        <option value="6">6 months</option>
+        <option value="12">12 months</option>
+        <option value="24">24 months</option>
+      </select>
+
+      <label for="loan-purpose">Purpose</label>
+      <select id="loan-purpose" required>
+        <option value="" disabled selected>Select purpose</option>
+        <option value="Education">Education</option>
+        <option value="Business">Business</option>
+        <option value="Personal">Personal</option>
+        <option value="Medical">Medical</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <button type="submit">Apply Now</button>
+      <div class="loading" id="loading">Processing your application...</div>
+    </form>
+  </section>
+
+  <!-- Loan Agreement Modal -->
+  <div id="loan-modal">
+    <div class="modal-content">
+      <h2>Loan Approved!</h2>
+      <p>Your loan application has been approved.</p>
+      <p><strong>Amount:</strong> ₦<span id="modal-amount"></span></p>
+      <p><strong>Term:</strong> <span id="modal-term"></span> months</p>
+      <p><strong>Purpose:</strong> <span id="modal-purpose"></span></p>
+      <p>Please review and accept the loan agreement.</p>
+      <button id="close-modal" class="btn-close">Close</button>
+    </div>
+  </div>
+
+  <script src="loan.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Zenith Prime — Login</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="center-wrap">
+    <div class="login-card" role="main" aria-labelledby="login-title">
+      <header class="brand">
+        <div class="brand-mark">ZP</div>
+        <div>
+          <h1 id="login-title">Zenith Prime</h1>
+          <p class="muted">Secure demo banking UI — client-side only</p>
+        </div>
+      </header>
+
+      <form id="loginForm" class="form" autocomplete="off" aria-describedby="login-help">
+        <label class="field">
+          <span>Username</span>
+          <input id="username" name="username" type="text" required placeholder="e.g. Pascal ubah" />
+        </label>
+
+        <label class="field">
+          <span>Password</span>
+          <input id="password" name="password" type="password" required placeholder="Password" />
+        </label>
+
+        <div id="login-help" class="muted small">Demo credentials: <strong>Pascal ubah</strong> / <strong>helpme12@</strong></div>
+
+        <div class="actions">
+          <button id="loginBtn" class="btn primary" type="submit" aria-live="polite">
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="btn-text">Sign in</span>
+          </button>
+        </div>
+
+        <div id="loginMsg" class="msg" role="status" aria-live="assertive"></div>
+      </form>
+
+      <footer class="foot muted small">Not real money — demo only • LocalStorage persists demo data</footer>
+    </div>
+  </main>
+
+  <script src="js/app.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

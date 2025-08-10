@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zenith Prime - Transfer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="dashboard-body">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Zenith Prime</div>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="transfer.html" class="active">Transfer</a></li>
+      <li><a href="airtime.html">Airtime</a></li>
+      <li><a href="addmoney.html">Add Money</a></li>
+      <li><a href="history.html">History</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </nav>
+
+  <section class="form-section">
+    <h2>Transfer Funds</h2>
+    <form id="transfer-form">
+      <label for="recipient-name">Recipient Name</label>
+      <input id="recipient-name" type="text" placeholder="John Doe" required />
+
+      <label for="account-number">Account Number</label>
+      <input id="account-number" type="text" maxlength="10" placeholder="1234567890" required pattern="\d{10}" title="10-digit account number" />
+
+      <label for="bank-select">Select Bank</label>
+      <select id="bank-select" required>
+        <option value="">Choose Bank</option>
+        <option value="Access Bank">Access Bank</option>
+        <option value="Citibank">Citibank</option>
+        <option value="Diamond Bank">Diamond Bank</option>
+        <option value="Ecobank">Ecobank</option>
+        <option value="Fidelity Bank">Fidelity Bank</option>
+        <option value="First Bank">First Bank</option>
+        <option value="GTBank">GTBank</option>
+        <option value="Heritage Bank">Heritage Bank</option>
+        <option value="Keystone Bank">Keystone Bank</option>
+        <option value="Polaris Bank">Polaris Bank</option>
+        <option value="Stanbic IBTC">Stanbic IBTC</option>
+        <option value="Standard Chartered">Standard Chartered</option>
+        <option value="Sterling Bank">Sterling Bank</option>
+        <option value="Suntrust Bank">Suntrust Bank</option>
+        <option value="Union Bank">Union Bank</option>
+        <option value="United Bank for Africa (UBA)">UBA</option>
+        <option value="Unity Bank">Unity Bank</option>
+        <option value="Wema Bank">Wema Bank</option>
+        <option value="Zenith Bank">Zenith Bank</option>
+        <option value="Opay">Opay</option>
+        <option value="Palmpay">Palmpay</option>
+        <option value="Moinpoint">Moinpoint</option>
+      </select>
+
+      <label for="transfer-amount">Amount (₦)</label>
+      <input id="transfer-amount" type="number" min="1" placeholder="1000" required />
+
+      <button type="submit" class="btn-primary">Proceed</button>
+    </form>
+  </section>
+
+  <!-- PIN Modal -->
+  <div id="pin-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Enter Transaction PIN</h3>
+      <input type="password" id="pin-input" maxlength="4" placeholder="****" />
+      <p id="pin-error" class="error-msg"></p>
+      <button id="confirm-pin" class="btn-primary">Confirm</button>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="success-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>✅ Transfer Successful</h3>
+      <p id="success-details"></p>
+      <button onclick="window.location.href='dashboard.html'" class="btn-primary">Back to Dashboard</button>
+    </div>
+  </div>
+
+  <script src="transfer.js"></script>
+</body>
+</html>

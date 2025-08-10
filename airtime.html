@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenith Prime - Buy Airtime</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Zenith Prime</div>
+        <ul class="nav-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="transfer.html">Transfer</a></li>
+            <li><a href="airtime.html" class="active">Airtime</a></li>
+            <li><a href="addmoney.html">Add Money</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="settings.html">Settings</a></li>
+        </ul>
+    </nav>
+
+    <!-- Airtime Form -->
+    <section class="form-section">
+        <h2>Buy Airtime</h2>
+        <form id="airtime-form">
+            <label for="network">Network</label>
+            <select id="network" required>
+                <option value="">Select Network</option>
+                <option value="MTN">MTN</option>
+                <option value="Airtel">Airtel</option>
+                <option value="Glo">Glo</option>
+                <option value="9mobile">9mobile</option>
+            </select>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" placeholder="08012345678" required>
+
+            <label for="amount">Amount (₦)</label>
+            <input type="number" id="amount" placeholder="1000" required>
+
+            <button type="submit" class="btn-primary">Proceed</button>
+        </form>
+    </section>
+
+    <!-- PIN Modal -->
+    <div id="pin-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Enter Transaction PIN</h3>
+            <input type="password" id="pin-input" maxlength="4" placeholder="****">
+            <p id="pin-error" class="error-msg"></p>
+            <button id="confirm-pin" class="btn-primary">Confirm</button>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>✅ Airtime Purchase Successful</h3>
+            <p id="success-details"></p>
+            <button onclick="window.location.href='dashboard.html'" class="btn-primary">Back to Dashboard</button>
+        </div>
+    </div>
+
+    <script src="airtime.js"></script>
+</body>
+</html>
