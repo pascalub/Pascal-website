@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zenith Prime - Settings</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .form-section {
+      max-width: 500px;
+      margin: 2rem auto;
+      background: #1f2937;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: none;
+      margin-top: 0.25rem;
+      font-size: 1rem;
+    }
+    .btn-primary {
+      margin-top: 1.5rem;
+      width: 100%;
+    }
+    .profile-pic-preview {
+      display: block;
+      margin: 1rem auto;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #22c55e;
+      background: #374151;
+    }
+    .success-msg {
+      color: #22c55e;
+      margin-top: 0.5rem;
+    }
+    .error-msg {
+      color: #ef4444;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body class="dashboard-body">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Zenith Prime</div>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="transfer.html">Transfer</a></li>
+      <li><a href="airtime.html">Airtime</a></li>
+      <li><a href="addmoney.html">Add Money</a></li>
+      <li><a href="history.html">History</a></li>
+      <li><a href="settings.html" class="active">Settings</a></li>
+    </ul>
+  </nav>
+
+  <section class="form-section">
+    <h2>Profile & Security Settings</h2>
+
+    <form id="settings-form" novalidate>
+      <label for="username">Username</label>
+      <input type="text" id="username" required />
+
+      <label for="contact-phone">Phone Number</label>
+      <input type="tel" id="contact-phone" placeholder="+234XXXXXXXXXX" pattern="^\+234\d{10}$" title="Must be a valid Nigerian phone number starting with +234" />
+
+      <label for="contact-email">Email</label>
+      <input type="email" id="contact-email" placeholder="example@example.com" />
+
+      <label for="profile-pic">Profile Picture</label>
+      <input type="file" id="profile-pic" accept="image/*" />
+      <img id="profile-pic-preview" class="profile-pic-preview" src="default-profile.png" alt="Profile Picture Preview" />
+
+      <hr style="margin:2rem 0; border-color:#374151" />
+
+      <label for="old-password">Current Password</label>
+      <input type="password" id="old-password" placeholder="Enter current password" />
+
+      <label for="new-password">New Password</label>
+      <input type="password" id="new-password" placeholder="New password" />
+
+      <label for="confirm-password">Confirm New Password</label>
+      <input type="password" id="confirm-password" placeholder="Confirm new password" />
+
+      <hr style="margin:2rem 0; border-color:#374151" />
+
+      <label for="old-pin">Current Transaction PIN</label>
+      <input type="password" id="old-pin" maxlength="4" placeholder="****" />
+
+      <label for="new-pin">New Transaction PIN</label>
+      <input type="password" id="new-pin" maxlength="4" placeholder="****" />
+
+      <label for="confirm-pin">Confirm New Transaction PIN</label>
+      <input type="password" id="confirm-pin" maxlength="4" placeholder="****" />
+
+      <button type="submit" class="btn-primary">Save Changes</button>
+      <p id="form-message"></p>
+    </form>
+  </section>
+
+  <script src="settings.js"></script>
+</body>
+</html>

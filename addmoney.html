@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zenith Prime - Add Money</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="dashboard-body">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Zenith Prime</div>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="transfer.html">Transfer</a></li>
+      <li><a href="airtime.html">Airtime</a></li>
+      <li><a href="addmoney.html" class="active">Add Money</a></li>
+      <li><a href="history.html">History</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </nav>
+
+  <section class="form-section">
+    <h2>Add Money to Your Account</h2>
+    <form id="add-money-form">
+      <label for="amount">Amount (₦)</label>
+      <input type="number" id="amount" min="1" placeholder="1000" required />
+
+      <button type="submit" class="btn-primary">Add Money</button>
+    </form>
+
+    <p id="message" style="margin-top:1rem;"></p>
+  </section>
+
+  <script src="addmoney.js"></script>
+</body>
+</html>

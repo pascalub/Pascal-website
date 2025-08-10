@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zenith Prime - Bill Payment</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background: #111827;
+      color: #e0e7ff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    nav.navbar {
+      background-color: #134e4a;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #22c55e;
+      font-weight: bold;
+    }
+    nav.navbar a {
+      color: #a7f3d0;
+      text-decoration: none;
+      margin-left: 1rem;
+      transition: color 0.3s ease;
+    }
+    nav.navbar a:hover {
+      color: #22c55e;
+    }
+    .container {
+      max-width: 500px;
+      margin: 3rem auto;
+      background: #1f2937;
+      padding: 2rem 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(34, 197, 94, 0.6);
+    }
+    h2 {
+      color: #22c55e;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    select, input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: none;
+      margin-top: 0.3rem;
+      background: #374151;
+      color: #e0e7ff;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.75rem;
+      background: #22c55e;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #111827;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #16a34a;
+      color: #fff;
+    }
+
+    /* Modal */
+    .modal-bg {
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-bg.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal {
+      background: #111827;
+      padding: 2rem 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #22c55e;
+      max-width: 400px;
+      width: 90%;
+      color: #e0e7ff;
+      text-align: center;
+    }
+    .modal h3 {
+      margin-bottom: 1rem;
+      color: #22c55e;
+    }
+    .modal p {
+      margin: 0.5rem 0;
+    }
+    .modal button {
+      margin-top: 1.5rem;
+      background: #16a34a;
+      color: #fff;
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 10px;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .modal button:hover {
+      background: #134e4a;
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="logo">Zenith Prime</div>
+    <div>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="transfer.html">Transfer</a>
+      <a href="airtime.html">Airtime</a>
+      <a href="addmoney.html">Add Money</a>
+      <a href="history.html">History</a>
+      <a href="settings.html">Settings</a>
+      <a href="loan.html">Loan</a>
+      <a href="saving.html">Savings</a>
+      <a href="billpayment.html" aria-current="page" style="color:#22c55e;">Bill Payment</a>
+    </div>
+  </nav>
+
+  <main class="container" role="main">
+    <h2>Bill Payment</h2>
+    <form id="bill-form" novalidate>
+      <label for="bill-type">Select Bill Type</label>
+      <select id="bill-type" required>
+        <option value="" disabled selected>Select a bill</option>
+        <option value="electricity">Electricity (PHCN/NEPA)</option>
+        <option value="water">Water</option>
+        <option value="internet">Internet</option>
+      </select>
+
+      <label for="provider">Select Provider</label>
+      <select id="provider" required disabled>
+        <option value="" disabled selected>Select provider</option>
+      </select>
+
+      <label for="account-number">Account/Reference Number</label>
+      <input type="text" id="account-number" placeholder="Enter your account or reference number" required autocomplete="off" />
+
+      <label for="amount">Amount (₦)</label>
+      <input type="number" id="amount" min="100" placeholder="Enter amount" required />
+
+      <button type="submit">Pay Bill</button>
+    </form>
+  </main>
+
+  <!-- Payment Confirmation Modal -->
+  <div class="modal-bg" id="modal-bg" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc">
+    <div class="modal">
+      <h3 id="modal-title">Payment Successful</h3>
+      <p id="modal-desc"></p>
+      <button id="modal-close-btn">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Providers list by bill type
+    const providersMap = {
+      electricity: ["PHCN", "Ikeja Electric", "Eko Electricity", "Enugu Electricity"],
+      water: ["Lagos Water Corporation", "Abuja Water Board", "Kano Water Services"],
+      internet: ["Spectranet", "Smile", "MTN Internet", "Glo LTE"]
+    };
+
+    const billTypeSelect = document.getElementById("bill-type");
+    const providerSelect = document.getElementById("provider");
+    const accountInput = document.getElementById("account-number");
+    const amountInput = document.getElementById("amount");
+    const form = document.getElementById("bill-form");
+    const modalBg = document.getElementById("modal-bg");
+    const modalDesc = document.getElementById("modal-desc");
+    const modalCloseBtn = document.getElementById("modal-close-btn");
+
+    billTypeSelect.addEventListener("change", () => {
+      const type = billTypeSelect.value;
+      providerSelect.innerHTML = '<option value="" disabled selected>Select provider</option>';
+
+      if (providersMap[type]) {
+        providersMap[type].forEach(prov => {
+          const option = document.createElement("option");
+          option.value = prov;
+          option.textContent = prov;
+          providerSelect.appendChild(option);
+        });
+        providerSelect.disabled = false;
+      } else {
+        providerSelect.disabled = true;
+      }
+    });
+
+    function formatCurrency(amount) {
+      return "₦" + amount.toLocaleString("en-NG");
+    }
+
+    function generateTransactionId() {
+      const now = new Date();
+      return 'TXN' + now.getTime() + Math.floor(Math.random() * 1000);
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      // Basic validations
+      if (!billTypeSelect.value || !providerSelect.value || !accountInput.value.trim() || !amountInput.value) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      if (amountInput.value < 100) {
+        alert("Minimum amount is ₦100.");
+        return;
+      }
+
+      // Generate transaction
+      const transaction = {
+        id: generateTransactionId(),
+        type: 'bill-payment',
+        billType: billTypeSelect.value,
+        provider: providerSelect.value,
+        accountNumber: accountInput.value.trim(),
+        amount: Number(amountInput.value),
+        date: new Date().toISOString()
+      };
+
+      // Save transaction to localStorage history
+      const transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+      transactions.push(transaction);
+      localStorage.setItem("transactions", JSON.stringify(transactions));
+
+      // Show confirmation modal
+      modalDesc.innerHTML = `
+        You have successfully paid <strong>${formatCurrency(transaction.amount)}</strong> to <strong>${transaction.provider}</strong> for your <strong>${transaction.billType}</strong> bill.<br/>
+        Reference Number: <strong>${transaction.accountNumber}</strong><br/>
+        Transaction ID: <strong>${transaction.id}</strong><br/>
+        Date: <strong>${new Date(transaction.date).toLocaleString('en-NG')}</strong>
+      `;
+      modalBg.classList.add("active");
+      form.reset();
+      providerSelect.disabled = true;
+    });
+
+    modalCloseBtn.addEventListener("click", () => {
+      modalBg.classList.remove("active");
+    });
+
+    // Accessibility: close modal on Escape
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modalBg.classList.contains("active")) {
+        modalBg.classList.remove("active");
+      }
+    });
+  </script>
+</body>
+</html>

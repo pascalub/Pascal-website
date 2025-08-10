@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenith Prime - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- Top Navigation -->
+    <nav class="navbar">
+        <div class="logo">Zenith Prime</div>
+        <ul class="nav-links">
+            <li><a href="dashboard.html" class="active">Dashboard</a></li>
+            <li><a href="transfer.html">Transfer</a></li>
+            <li><a href="airtime.html">Airtime</a></li>
+            <li><a href="addmoney.html">Add Money</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="settings.html">Settings</a></li>
+            <li><a href="loan.html">loan</a></li>
+            <li><a href="saving.html">saving</a></li>
+            <li><a href="bills.html">bills</a></li>
+        </ul>
+        </ul>
+    </nav>
+
+    <!-- Welcome Section -->
+    <section class="welcome">
+        <h2>Welcome, Pascal Ubah</h2>
+        <p>Here’s your account overview</p>
+    </section>
+
+    <!-- Account Cards -->
+    <section class="cards-container">
+        <div class="account-card">
+            <h3>Current Account</h3>
+            <p class="balance">₦ <span id="current-balance">150,000.00</span></p>
+            <p class="acc-number">Account No: 1234567890</p>
+        </div>
+        <div class="account-card">
+            <h3>Savings Account</h3>
+            <p class="balance">₦ <span id="savings-balance">300,000.00</span></p>
+            <p class="acc-number">Account No: 0987654321</p>
+        </div>
+    </section>
+
+    <!-- Virtual Debit Card -->
+    <section class="debit-card">
+        <div class="chip"></div>
+        <div class="card-number">**** **** **** 2345</div>
+        <div class="card-footer">
+            <div>
+                <small>CARD HOLDER</small>
+                <p>PASCAL UBAH</p>
+            </div>
+            <div>
+                <small>VALID THRU</small>
+                <p>12/27</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Animated Card UI Section -->
+<section class="card-section" style="margin: 2rem auto; max-width: 380px;">
+    <h2 style="color: #22c55e; text-align: center; margin-bottom: 1rem;">Your Virtual Card</h2>
+    <div class="card-container" tabindex="0" aria-label="Virtual debit card">
+      <div class="card">
+        <div class="bank-logo">ZENITH PRIME</div>
+        <div class="chip" aria-hidden="true"></div>
+        <div class="card-number" id="card-number">**** **** **** 1234</div>
+        <div class="mask-toggle" id="mask-toggle" tabindex="0" role="button" aria-pressed="true" aria-label="Show card number">Show</div>
+        <div class="card-footer">
+          <div class="cardholder">
+            <div class="label">Cardholder</div>
+            <div id="cardholder-name">Pascal Ubah</div>
+          </div>
+          <div class="expiry">
+            <div class="label">Expires</div>
+            <div id="expiry-date">12/27</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

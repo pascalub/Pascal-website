@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zenith Prime - Two-Factor Authentication</title>
+  <style>
+    body {
+      background: #111827;
+      color: #a7f3d0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+    }
+    .container {
+      background: #1f2937;
+      padding: 2.5rem 3rem;
+      border-radius: 16px;
+      box-shadow: 0 0 30px #22c55e;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+    }
+    h2 {
+      color: #22c55e;
+      margin-bottom: 1rem;
+    }
+    p {
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      color: #d1fae5;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      border: none;
+      background: #374151;
+      color: #a7f3d0;
+      letter-spacing: 0.2em;
+      text-align: center;
+      font-weight: 700;
+      outline-offset: 2px;
+      outline-color: #22c55e;
+      caret-color: #22c55e;
+      margin-bottom: 1rem;
+    }
+    input[type="text"]:focus {
+      background: #4b5563;
+    }
+    button {
+      background: #22c55e;
+      border: none;
+      border-radius: 10px;
+      padding: 0.9rem 0;
+      color: #111827;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s ease;
+      margin-bottom: 0.8rem;
+    }
+    button:disabled {
+      background: #6ee7b7;
+      cursor: not-allowed;
+    }
+    button:hover:not(:disabled) {
+      background: #16a34a;
+      color: #fff;
+    }
+    .error-msg {
+      color: #ef4444;
+      margin-bottom: 1rem;
+      min-height: 1.2rem;
+      font-weight: 600;
+    }
+    .resend-btn {
+      background: transparent;
+      border: none;
+      color: #a7f3d0;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .resend-btn:disabled {
+      color: #374151;
+      cursor: not-allowed;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main" aria-labelledby="title" aria-describedby="desc">
+    <h2 id="title">Two-Factor Authentication</h2>
+    <p id="desc">Enter the 4-digit verification code sent to your registered phone number.</p>
+
+    <form id="2fa-form" autocomplete="off" novalidate>
+      <input
+        type="text"
+        id="code-input"
+        name="code"
+        inputmode="numeric"
+        maxlength="4"
+        pattern="[0-9]{4}"
+        aria-describedby="error-msg"
+        aria-required="true"
+        placeholder="••••"
+        autofocus
+        required
+      />
+      <div id="error-msg" class="error-msg" aria-live="polite"></div>
+      <button type="submit" id="submit-btn">Verify</button>
+    </form>
+
+    <button id="resend-btn" class="resend-btn" type="button" disabled>Resend code (30s)</button>
+  </div>
+
+  <script>
+    (() => {
+      const CODE = "2007"; // fixed 2FA code
+      const form = document.getElementById("2fa-form");
+      const codeInput = document.getElementById("code-input");
+      const errorMsg = document.getElementById("error-msg");
+      const submitBtn = document.getElementById("submit-btn");
+      const resendBtn = document.getElementById("resend-btn");
+
+      let resendTimer = 30;
+      let timerInterval = null;
+
+      function startResendTimer() {
+        resendBtn.disabled = true;
+        resendBtn.textContent = `Resend code (${resendTimer}s)`;
+
+        timerInterval = setInterval(() => {
+          resendTimer--;
+          resendBtn.textContent = `Resend code (${resendTimer}s)`;
+          if (resendTimer <= 0) {
+            clearInterval(timerInterval);
+            resendBtn.disabled = false;
+            resendBtn.textContent = "Resend code";
+            resendTimer = 30;
+          }
+        }, 1000);
+      }
+
+      resendBtn.addEventListener("click", () => {
+        alert("A new verification code has been sent to your registered phone number (simulated).");
+        startResendTimer();
+      });
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        errorMsg.textContent = "";
+
+        const enteredCode = codeInput.value.trim();
+
+        if (!/^\d{4}$/.test(enteredCode)) {
+          errorMsg.textContent = "Please enter a valid 4-digit code.";
+          codeInput.focus();
+          return;
+        }
+
+        if (enteredCode !== CODE) {
+          errorMsg.textContent = "Incorrect code. Please try again.";
+          codeInput.value = "";
+          codeInput.focus();
+          return;
+        }
+
+        // Code correct: redirect to dashboard
+        alert("Verification successful! Redirecting to Dashboard...");
+        window.location.href = "dashboard.html";
+      });
+
+      // Initialize resend timer on page load
+      startResendTimer();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zenith Prime - Savings Goals</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .container {
+      max-width: 600px;
+      margin: 3rem auto;
+      background: #1f2937;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+      color: #e0e7ff;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #22c55e;
+    }
+    form label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    form input[type="text"],
+    form input[type="number"] {
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: none;
+      margin-top: 0.25rem;
+      font-size: 1rem;
+      background: #374151;
+      color: #fff;
+    }
+    form button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 10px;
+      border: none;
+      background: #22c55e;
+      font-weight: bold;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    form button:hover {
+      background: #16a34a;
+    }
+    .goal-list {
+      margin-top: 2rem;
+    }
+    .goal-item {
+      background: #111827;
+      margin-bottom: 1rem;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(34,197,94,0.3);
+    }
+    .goal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #22c55e;
+    }
+    .progress-bar-bg {
+      width: 100%;
+      height: 20px;
+      background: #374151;
+      border-radius: 10px;
+      margin-top: 0.7rem;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: #22c55e;
+      width: 0%;
+      transition: width 0.5s ease;
+      border-radius: 10px 0 0 10px;
+    }
+    .deposit-section {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+    }
+    .deposit-section input[type="number"] {
+      flex: 1;
+    }
+    .deposit-section button {
+      flex-shrink: 0;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background: #10b981;
+      border-radius: 8px;
+      border: none;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .deposit-section button:hover {
+      background: #059669;
+    }
+    .no-goals {
+      text-align: center;
+      margin-top: 2rem;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body class="dashboard-body">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Zenith Prime</div>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="transfer.html">Transfer</a></li>
+      <li><a href="airtime.html">Airtime</a></li>
+      <li><a href="addmoney.html">Add Money</a></li>
+      <li><a href="history.html">History</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="loan.html">Loan</a></li>
+      <li><a href="saving.html" class="active">Savings</a></li>
+    </ul>
+  </nav>
+
+  <section class="container">
+    <h2>Savings Goals Tracker</h2>
+
+    <form id="goal-form" novalidate>
+      <label for="goal-name">Goal Name</label>
+      <input type="text" id="goal-name" placeholder="e.g. Buy iPhone" required />
+
+      <label for="goal-target">Target Amount (₦)</label>
+      <input type="number" id="goal-target" min="1000" placeholder="Enter amount" required />
+
+      <button type="submit">Add Goal</button>
+    </form>
+
+    <div class="goal-list" id="goal-list">
+      <!-- Goals will appear here -->
+    </div>
+  </section>
+
+  <script src="saving.js"></script>
+</body>
+</html>
